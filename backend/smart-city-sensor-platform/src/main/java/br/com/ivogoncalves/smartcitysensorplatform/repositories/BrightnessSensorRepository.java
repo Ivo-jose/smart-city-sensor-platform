@@ -6,4 +6,4 @@ import org.springframework.stereotype.Repository;
 import br.com.ivogoncalves.smartcitysensorplatform.models.BrightnessSensor;
 
 @Repository
-public interface BrightnessSensorRepository extends MongoRepository<BrightnessSensor,Long> {}
+public interface BrightnessSensorRepository extends MongoRepository<BrightnessSensor,String> {}

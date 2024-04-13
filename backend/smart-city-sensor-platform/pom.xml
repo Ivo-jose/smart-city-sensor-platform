@@ -12,7 +12,10 @@
 	<artifactId>smart-city-sensor-platform</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>smart-city-sensor-platform</name>
-	<description>Scalable API with Spring Boot for sensor data in a smart city. Uses REST, messaging, MongoDB, 		Spring Security and Swagger. Includes unit tests and Dockerfiles for deployment.</description>
+	<description>
+		Scalable API with Spring Boot for sensor data in a smart city. Uses REST, messaging, MongoDB,
+		Spring Security and Swagger. Includes unit tests and Dockerfiles for deployment.
+	</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -31,6 +34,20 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+		<groupId>org.modelmapper</groupId>
+		<artifactId>modelmapper</artifactId>
+		<version>3.2.0</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-devtools</artifactId>
+		<scope>runtime</scope>
+		<optional>true</optional>
+	</dependency>
+		
 	</dependencies>
 
 	<build>

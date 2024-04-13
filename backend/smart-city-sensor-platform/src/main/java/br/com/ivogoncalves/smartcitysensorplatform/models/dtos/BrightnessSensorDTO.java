@@ -4,27 +4,29 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
+
 public class BrightnessSensorDTO implements Serializable {
 	
     private static final long serialVersionUID = 1L;
 	
-    private Long uid;
+  
+    private String uid;
     private Double lux;
     private Instant timesStampUTC;
 
     public BrightnessSensorDTO() {}
 
-    public BrightnessSensorDTO(Long uid, Double lux, Instant timesStampUTC) {
+    public BrightnessSensorDTO(String uid, Double lux, Instant timesStampUTC) {
         this.uid = uid;
         this.lux = lux;
         this.timesStampUTC = timesStampUTC;
     }
 
-    public Long getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(Long uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 
@@ -44,20 +46,25 @@ public class BrightnessSensorDTO implements Serializable {
         this.timesStampUTC = timesStampUTC;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BrightnessSensorDTO that = (BrightnessSensorDTO) o;
-        return Objects.equals(uid, that.uid) && Objects.equals(lux, that.lux) && Objects.equals(timesStampUTC, that.timesStampUTC);
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(lux, timesStampUTC, uid);
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(uid, lux, timesStampUTC);
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BrightnessSensorDTO other = (BrightnessSensorDTO) obj;
+		return Objects.equals(lux, other.lux) && Objects.equals(timesStampUTC, other.timesStampUTC)
+				&& Objects.equals(uid, other.uid);
+	}
 
-    @Override
+	@Override
     public String toString() {
         return """
                 BrightnessSensor{" +
@@ -68,3 +75,4 @@ public class BrightnessSensorDTO implements Serializable {
                 """.formatted(getUid(),getLux(),getTimesStampUTC().toString());
     }
 }
+
