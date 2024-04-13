@@ -8,23 +8,23 @@ public class TemperatureSensorDTO implements Serializable {
     
 	private static final long serialVersionUID = 1L;
 
-    private Long uid;
+    private String uid;
     private Double celsiusTemperature;
     private Instant utcTimesStamp;
 
     public TemperatureSensorDTO() {}
 
-    public TemperatureSensorDTO(Long uid, Double celsiusTemperature, Instant utcTimesStamp) {
+    public TemperatureSensorDTO(String uid, Double celsiusTemperature, Instant utcTimesStamp) {
         this.uid = uid;
         this.celsiusTemperature = celsiusTemperature;
         this.utcTimesStamp = utcTimesStamp;
     }
 
-    public Long getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(Long uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 
@@ -44,21 +44,27 @@ public class TemperatureSensorDTO implements Serializable {
         this.utcTimesStamp = utcTimesStamp;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TemperatureSensorDTO that = (TemperatureSensorDTO) o;
-        return Objects.equals(uid, that.uid) && Objects.equals(celsiusTemperature, that.celsiusTemperature)
-                && Objects.equals(utcTimesStamp, that.utcTimesStamp);
-    }
+    
 
     @Override
-    public int hashCode() {
-        return Objects.hash(uid, celsiusTemperature, utcTimesStamp);
-    }
+	public int hashCode() {
+		return Objects.hash(celsiusTemperature, uid, utcTimesStamp);
+	}
 
-    @Override
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TemperatureSensorDTO other = (TemperatureSensorDTO) obj;
+		return Objects.equals(celsiusTemperature, other.celsiusTemperature) && Objects.equals(uid, other.uid)
+				&& Objects.equals(utcTimesStamp, other.utcTimesStamp);
+	}
+
+	@Override
     public String toString() {
         return """
                 TemperatureSensor{

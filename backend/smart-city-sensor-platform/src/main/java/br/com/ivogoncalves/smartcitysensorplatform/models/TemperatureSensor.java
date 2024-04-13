@@ -13,23 +13,23 @@ public class TemperatureSensor implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
     @Id
-    private Long uid;
+    private String uid;
     private Double celsiusTemperature;
     private Instant utcTimesStamp;
 
     public TemperatureSensor() {}
 
-    public TemperatureSensor(Long uid, Double celsiusTemperature, Instant utcTimesStamp) {
+    public TemperatureSensor(String uid, Double celsiusTemperature, Instant utcTimesStamp) {
         this.uid = uid;
         this.celsiusTemperature = celsiusTemperature;
         this.utcTimesStamp = utcTimesStamp;
     }
 
-    public Long getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(Long uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 
@@ -50,20 +50,24 @@ public class TemperatureSensor implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TemperatureSensor that = (TemperatureSensor) o;
-        return Objects.equals(uid, that.uid) && Objects.equals(celsiusTemperature, that.celsiusTemperature)
-                && Objects.equals(utcTimesStamp, that.utcTimesStamp);
-    }
+	public int hashCode() {
+		return Objects.hash(celsiusTemperature, uid, utcTimesStamp);
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(uid, celsiusTemperature, utcTimesStamp);
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TemperatureSensor other = (TemperatureSensor) obj;
+		return Objects.equals(celsiusTemperature, other.celsiusTemperature) && Objects.equals(uid, other.uid)
+				&& Objects.equals(utcTimesStamp, other.utcTimesStamp);
+	}
 
-    @Override
+	@Override
     public String toString() {
         return """
                 TemperatureSensor{
