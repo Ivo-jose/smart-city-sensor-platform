@@ -1,7 +1,7 @@
 package br.com.ivogoncalves.smartcitysensorplatform.models.dtos;
 
 import java.io.Serializable;
-import java.time.Instant;
+import java.util.Date;
 import java.util.Objects;
 
 
@@ -12,11 +12,11 @@ public class BrightnessSensorDTO implements Serializable {
   
     private String uid;
     private Double lux;
-    private Instant timesStampUTC;
+    private Date timesStampUTC;
 
     public BrightnessSensorDTO() {}
 
-    public BrightnessSensorDTO(String uid, Double lux, Instant timesStampUTC) {
+    public BrightnessSensorDTO(String uid, Double lux, Date timesStampUTC) {
         this.uid = uid;
         this.lux = lux;
         this.timesStampUTC = timesStampUTC;
@@ -38,11 +38,11 @@ public class BrightnessSensorDTO implements Serializable {
         this.lux = lux;
     }
 
-    public Instant getTimesStampUTC() {
+    public Date getTimesStampUTC() {
         return timesStampUTC;
     }
 
-    public void setTimesStampUTC(Instant timesStampUTC) {
+    public void setTimesStampUTC(Date timesStampUTC) {
         this.timesStampUTC = timesStampUTC;
     }
 

@@ -1,11 +1,11 @@
 package br.com.ivogoncalves.smartcitysensorplatform.models;
 
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Objects;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.io.Serializable;
-import java.time.Instant;
-import java.util.Objects;
 
 @Document(collection = "brightness-sensor")
 public class BrightnessSensor implements Serializable {
@@ -15,11 +15,11 @@ public class BrightnessSensor implements Serializable {
     @Id
     private String uid;
     private Double lux;
-    private Instant timesStampUTC;
+    private Date timesStampUTC;
 
     public BrightnessSensor() {}
 
-    public BrightnessSensor(String uid, Double lux, Instant timesStampUTC) {
+    public BrightnessSensor(String uid, Double lux, Date timesStampUTC) {
         this.uid = uid;
         this.lux = lux;
         this.timesStampUTC = timesStampUTC;
@@ -41,15 +41,16 @@ public class BrightnessSensor implements Serializable {
         this.lux = lux;
     }
 
-    public Instant getTimesStampUTC() {
+    public Date getTimesStampUTC() {
         return timesStampUTC;
     }
 
-    public void setTimesStampUTC(Instant timesStampUTC) {
+    public void setTimesStampUTC(Date timesStampUTC) {
         this.timesStampUTC = timesStampUTC;
     }
 
-    @Override
+   
+	@Override
 	public int hashCode() {
 		return Objects.hash(lux, timesStampUTC, uid);
 	}

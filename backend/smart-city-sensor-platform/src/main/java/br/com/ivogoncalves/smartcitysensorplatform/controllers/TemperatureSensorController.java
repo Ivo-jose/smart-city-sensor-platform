@@ -3,7 +3,6 @@ package br.com.ivogoncalves.smartcitysensorplatform.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ivogoncalves.smartcitysensorplatform.models.dtos.TemperatureSensorDTO;
 import br.com.ivogoncalves.smartcitysensorplatform.services.TemperatureSensorService;
+import br.com.ivogoncalves.smartcitysensorplatform.utils.MediaType;
 
 @RestController
 @RequestMapping(value ="/api/temperature/v1")
@@ -24,22 +24,24 @@ public class TemperatureSensorController {
     @Autowired
     private TemperatureSensorService service;
     
-    @GetMapping(value = "/{uid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{uid}", produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
     public TemperatureSensorDTO findByID(@PathVariable(value = "uid") String uid) {
     	return service.findById(uid);
     }
     
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
     public List<TemperatureSensorDTO> findAll() {
     	return service.findAll();
     }
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML}, 
+			     consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
     public TemperatureSensorDTO create(@RequestBody TemperatureSensorDTO objDTO){
         return service.create(objDTO);
     }
     
-    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML}, 
+		        consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
     public TemperatureSensorDTO update(@RequestBody TemperatureSensorDTO objDTO) {
     	return service.update(objDTO);
     }

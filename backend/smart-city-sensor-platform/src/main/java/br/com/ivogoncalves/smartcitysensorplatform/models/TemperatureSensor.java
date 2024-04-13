@@ -1,11 +1,11 @@
 package br.com.ivogoncalves.smartcitysensorplatform.models;
 
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Objects;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.io.Serializable;
-import java.time.Instant;
-import java.util.Objects;
 
 @Document(collection = "temperature-sensor")
 public class TemperatureSensor implements Serializable {
@@ -15,11 +15,11 @@ public class TemperatureSensor implements Serializable {
     @Id
     private String uid;
     private Double celsiusTemperature;
-    private Instant utcTimesStamp;
+    private Date utcTimesStamp;
 
     public TemperatureSensor() {}
 
-    public TemperatureSensor(String uid, Double celsiusTemperature, Instant utcTimesStamp) {
+    public TemperatureSensor(String uid, Double celsiusTemperature, Date utcTimesStamp) {
         this.uid = uid;
         this.celsiusTemperature = celsiusTemperature;
         this.utcTimesStamp = utcTimesStamp;
@@ -41,15 +41,15 @@ public class TemperatureSensor implements Serializable {
         this.celsiusTemperature = celsiusTemperature;
     }
 
-    public Instant getUtcTimesStamp() {
+    public Date getUtcTimesStamp() {
         return utcTimesStamp;
     }
 
-    public void setUtcTimesStamp(Instant utcTimesStamp) {
+    public void setUtcTimesStamp(Date utcTimesStamp) {
         this.utcTimesStamp = utcTimesStamp;
     }
 
-    @Override
+	@Override
 	public int hashCode() {
 		return Objects.hash(celsiusTemperature, uid, utcTimesStamp);
 	}

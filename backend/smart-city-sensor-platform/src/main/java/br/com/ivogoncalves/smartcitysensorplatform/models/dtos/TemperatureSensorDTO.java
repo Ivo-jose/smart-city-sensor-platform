@@ -1,7 +1,7 @@
 package br.com.ivogoncalves.smartcitysensorplatform.models.dtos;
 
 import java.io.Serializable;
-import java.time.Instant;
+import java.util.Date;
 import java.util.Objects;
 
 public class TemperatureSensorDTO implements Serializable {
@@ -10,11 +10,11 @@ public class TemperatureSensorDTO implements Serializable {
 
     private String uid;
     private Double celsiusTemperature;
-    private Instant utcTimesStamp;
+    private Date utcTimesStamp;
 
     public TemperatureSensorDTO() {}
 
-    public TemperatureSensorDTO(String uid, Double celsiusTemperature, Instant utcTimesStamp) {
+    public TemperatureSensorDTO(String uid, Double celsiusTemperature, Date utcTimesStamp) {
         this.uid = uid;
         this.celsiusTemperature = celsiusTemperature;
         this.utcTimesStamp = utcTimesStamp;
@@ -36,17 +36,15 @@ public class TemperatureSensorDTO implements Serializable {
         this.celsiusTemperature = celsiusTemperature;
     }
 
-    public Instant getUtcTimesStamp() {
+    public Date getUtcTimesStamp() {
         return utcTimesStamp;
     }
 
-    public void setUtcTimesStamp(Instant utcTimesStamp) {
+    public void setUtcTimesStamp(Date utcTimesStamp) {
         this.utcTimesStamp = utcTimesStamp;
     }
 
-    
-
-    @Override
+	@Override
 	public int hashCode() {
 		return Objects.hash(celsiusTemperature, uid, utcTimesStamp);
 	}
