@@ -4,10 +4,14 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.ivogoncalves.smartcitysensorplatform.controllers.TemperatureSensorController;
 import br.com.ivogoncalves.smartcitysensorplatform.exceptions.RequiredObjectIsNullException;
 import br.com.ivogoncalves.smartcitysensorplatform.exceptions.ResourceNotFoundException;
 import br.com.ivogoncalves.smartcitysensorplatform.models.TemperatureSensor;
@@ -24,23 +28,29 @@ public class TemperatureSensorService {
     private Logger logger = Logger.getLogger(TemperatureSensorService.class.getName());
 
     
-    public TemperatureSensorDTO findById(String id) {
+    public TemperatureSensorDTO findById(String uid) {
     	logger.info("Finding a brightness sensor...");
-    	var entity = repository.findById(id).orElseThrow(() -> 
-    					new ResourceNotFoundException("There are no records for this id! ID: " + id));
-    	return mapper.map(entity, TemperatureSensorDTO.class);
+    	var entity = repository.findById(uid).orElseThrow(() -> 
+    					new ResourceNotFoundException("There are no records for this id! ID: " + uid));
+    	TemperatureSensorDTO dtoObj = mapper.map(entity, TemperatureSensorDTO.class);
+    	dtoObj.add(linkTo(methodOn(TemperatureSensorController.class).findByID(uid)).withSelfRel());
+    	return dtoObj;
     }
     
     public List<TemperatureSensorDTO> findAll() {
     	logger.info("Finding all brightness sensor...");
-    	return repository.findAll().stream().map(bs -> mapper.map(bs, TemperatureSensorDTO.class)).collect(Collectors.toList());
+    	var listDTO = repository.findAll().stream().map(bs -> mapper.map(bs, TemperatureSensorDTO.class)).collect(Collectors.toList());
+    	listDTO.stream().forEach(ts -> ts.add(linkTo(methodOn(TemperatureSensorController.class).findByID(ts.getUid())).withSelfRel()));
+    	return listDTO;
     }
     
     public TemperatureSensorDTO create(TemperatureSensorDTO objDTO) {
         if(objDTO == null) throw new RequiredObjectIsNullException();
         logger.info("Create a new brightness sensor...");
         var entity = mapper.map(objDTO, TemperatureSensor.class);
-        return mapper.map(repository.save(entity), TemperatureSensorDTO.class);
+        TemperatureSensorDTO dtoObj = mapper.map(repository.save(entity), TemperatureSensorDTO.class);
+        dtoObj.add(linkTo(methodOn(TemperatureSensorController.class).findByID(dtoObj.getUid())).withSelfRel());
+    	return dtoObj;
     }
     
     public TemperatureSensorDTO update(TemperatureSensorDTO objDTO) {
@@ -49,7 +59,9 @@ public class TemperatureSensorService {
 			new ResourceNotFoundException("There are no records for this id! UID: " + objDTO.getUid()));
         entity.setCelsiusTemperature(objDTO.getCelsiusTemperature());
         entity.setUtcTimesStamp(objDTO.getUtcTimesStamp());
-        return mapper.map(repository.save(entity), TemperatureSensorDTO.class);
+        TemperatureSensorDTO dtoObj = mapper.map(repository.save(entity), TemperatureSensorDTO.class);
+        dtoObj.add(linkTo(methodOn(TemperatureSensorController.class).findByID(dtoObj.getUid())).withSelfRel());
+    	return dtoObj;
     	
     }
     

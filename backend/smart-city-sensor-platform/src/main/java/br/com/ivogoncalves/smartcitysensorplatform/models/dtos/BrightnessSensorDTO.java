@@ -4,12 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+import org.springframework.hateoas.RepresentationModel;
 
-public class BrightnessSensorDTO implements Serializable {
+
+public class BrightnessSensorDTO extends RepresentationModel<BrightnessSensorDTO> implements Serializable {
 	
     private static final long serialVersionUID = 1L;
 	
-  
     private String uid;
     private Double lux;
     private Date timesStampUTC;
