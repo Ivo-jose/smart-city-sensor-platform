@@ -27,7 +27,7 @@ public class TemperatureSensorService {
     private ModelMapper mapper;
     private Logger logger = Logger.getLogger(TemperatureSensorService.class.getName());
 
-    
+    // Retrieves a brightness sensor by its unique identifier
     public TemperatureSensorDTO findById(String uid) {
     	logger.info("Finding a brightness sensor...");
     	var entity = repository.findById(uid).orElseThrow(() -> 
@@ -37,6 +37,7 @@ public class TemperatureSensorService {
     	return dtoObj;
     }
     
+    // Retrieves all brightness sensors
     public List<TemperatureSensorDTO> findAll() {
     	logger.info("Finding all brightness sensor...");
     	var listDTO = repository.findAll().stream().map(bs -> mapper.map(bs, TemperatureSensorDTO.class)).collect(Collectors.toList());
@@ -44,15 +45,20 @@ public class TemperatureSensorService {
     	return listDTO;
     }
     
+    // Creates a new brightness sensor with the provided data
     public TemperatureSensorDTO create(TemperatureSensorDTO objDTO) {
         if(objDTO == null) throw new RequiredObjectIsNullException();
         logger.info("Create a new brightness sensor...");
-        var entity = mapper.map(objDTO, TemperatureSensor.class);
+        TemperatureSensor entity = new TemperatureSensor();
+        entity.setUid(objDTO.getUid());
+        entity.setCelsiusTemperature(objDTO.getCelsiusTemperature());
+        entity.setUtcTimesStamp(objDTO.getUtcTimesStamp());
         TemperatureSensorDTO dtoObj = mapper.map(repository.save(entity), TemperatureSensorDTO.class);
         dtoObj.add(linkTo(methodOn(TemperatureSensorController.class).findByID(dtoObj.getUid())).withSelfRel());
     	return dtoObj;
     }
     
+    // Updates an existing brightness sensor with the provided data
     public TemperatureSensorDTO update(TemperatureSensorDTO objDTO) {
         if(objDTO == null) throw new RequiredObjectIsNullException();
         var entity = repository.findById(objDTO.getUid()).orElseThrow(() -> 

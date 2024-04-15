@@ -66,15 +66,4 @@ public class TemperatureSensor implements Serializable {
 		return Objects.equals(celsiusTemperature, other.celsiusTemperature) && Objects.equals(uid, other.uid)
 				&& Objects.equals(utcTimesStamp, other.utcTimesStamp);
 	}
-
-	@Override
-    public String toString() {
-        return """
-                TemperatureSensor{
-                   uid: %d,
-                   celsiusTemperature: %.2f,
-                   utcTimesStamp: %s
-                }
-                """.formatted(getUid(),getCelsiusTemperature(), getUtcTimesStamp().toString());
-    }
 }

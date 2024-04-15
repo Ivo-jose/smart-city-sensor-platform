@@ -67,15 +67,4 @@ public class BrightnessSensor implements Serializable {
 		return Objects.equals(lux, other.lux) && Objects.equals(timesStampUTC, other.timesStampUTC)
 				&& Objects.equals(uid, other.uid);
 	}
-
-	@Override
-    public String toString() {
-        return """
-                BrightnessSensor{" +
-                    uid: %d,
-                    lux: %.2f,
-                    timesStampUTC: %s
-                }
-                """.formatted(getUid(),getLux(),getTimesStampUTC().toString());
-    }
 }
